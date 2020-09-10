@@ -87,7 +87,7 @@ fun count_some_var (str, p) = g (fn x => 0) (fn x => if str = x then 1 else 0) p
 
 fun get_strs p =
     case p of
-      | Variable x        => [x]
+	Variable x        => [x]
       | TupleP ps         => List.foldl (fn (p,i) => (get_strs p)@i) [] ps
       | ConstructorP(_,p) => get_strs p
       | _                 => []
@@ -106,12 +106,16 @@ fun check_pat p =
 
 fun match (v, p) =
     case (v, p) of
-	(_, Wildcard) => SOME([])
-      | (v, Variable s) => SOME([(s, v)])
+	(_, Wildcard) => SOME []
+      | (v, Variable s) => SOME [(s, v)]
       | (Unit, UnitP) => SOME([])
-      | (Const x, ConstP y) => if x = y then SOME([]) else NONE
-      | (Tuple xs, TupleP ys) => all_answers match (ListPair.zip(xs, ys))
-      | (Constructor (s1, v), ConstructorP (s2, p)) => if s1 = s2 then match(v, p) else NONE
+      | (Const x, ConstP y) => if x = y then SOME [] else NONE
+      | (Tuple xs, TupleP ys) => if length xs = length ys then
+				     all_answers match (ListPair.zip(xs, ys))
+				 else NONE
+      | (Constructor (s1, v), ConstructorP (s2, p)) => if s1 = s2 
+						       then match(v, p) 
+						       else NONE
       | _ => NONE     
 
 fun first_match (v, ps) =
