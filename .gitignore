@@ -15,3 +15,5 @@ hw4.rkt~
 Notes.docx
 Notes.docx
 *.docx
+*.docx
+.DS_Store
