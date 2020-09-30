@@ -11,7 +11,8 @@
       (cons low (sequence (+ low stride) high stride))))
 
 ; 2
-(define (string-append-map xs suffix) (map (lambda (x) (string-append x suffix)) xs))
+(define (string-append-map xs suffix)
+  (map (lambda (x) (string-append x suffix)) xs))
 
 ; 3
 (define (list-nth-mod xs n)
@@ -28,9 +29,10 @@
 
 ; 5
 (define (funny-number-stream)
-  (letrec ([next (lambda (x) (if (= 0 (remainder x 5))
-                          (cons (* -1 x) (lambda () (next (+ x 1))))
-                          (cons x (lambda () (next (+ x 1))))))])
+  (letrec ([next (lambda (x)
+                   (if (= 0 (remainder x 5))
+                       (cons (* -1 x) (lambda () (next (+ x 1))))
+                       (cons x (lambda () (next (+ x 1))))))])
     (next 1)))
 
 ; 6

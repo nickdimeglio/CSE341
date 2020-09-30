@@ -98,7 +98,9 @@
                     (if (apair? v)
                         (apair-e2 v)
                         (error "Not a pair" v)))]
-        [(isaunit? e) (if (aunit? (eval-under-env (isaunit-e e) env)) (int 1) (int 0))]
+        [(isaunit? e) (if (aunit?
+                           (eval-under-env (isaunit-e e) env))
+                          (int 1) (int 0))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
 
