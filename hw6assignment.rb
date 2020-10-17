@@ -17,9 +17,7 @@ class MyPiece < Piece
   # class array adding some pieces to All Pieces
 
   All_My_Pieces = [[[[0, 0], [1, 0], [0, 1], [1, 1]]],  # square (only needs one)
-                   # !!!
-                   # !!!
-                   # rotations([[0, 0], [1, 0], [0, 1]]), # stubby L
+                   rotations([[0, 0], [1, 0], [0, 1]]), # stubby L
                    rotations([[0, 0], [-1, 0], [1, 0], [0, -1]]), # T
                    [[[0, 0], [-1, 0], [1, 0], [2, 0]], # long (only needs two)
                     [[0, 0], [0, -1], [0, 1], [0, 2]]],
@@ -27,11 +25,11 @@ class MyPiece < Piece
                    rotations([[0, 0], [0, -1], [0, 1], [-1, 1]]), # inverted L
                    rotations([[0, 0], [-1, 0], [0, -1], [1, -1]]), # S
                    rotations([[0, 0], [1, 0], [0, -1], [-1, -1]]), # Z
-                   rotations([[0, 0], [1, 0], [0, 1], [-1, 0], [-1, 1]]), #CorneredT
+                   rotations([[0, 0], [1, 0], [0, 1], [1, 1], [2, 0]]), #Box+1
                    [[[-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0]], # very long 
                     [[0, -2], [0, -1], [0, 0], [0, 1], [0, 2]]],
                   ]  
-  Cheat_Piece = [[0, 0]]
+  Cheat_Piece = [[[0, 0]]]
 end
 
 class MyBoard < Board
@@ -59,7 +57,7 @@ class MyBoard < Board
 
   # Override Board's next_piece to use MyPiece
   def next_piece
-    if cheat and (@score > 100)
+    if cheat and (@score >= 100)
     then ( @score -= 100
            @cheat = false
            @current_block = MyPiece.cheat_piece(self)
